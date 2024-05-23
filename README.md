@@ -1784,10 +1784,12 @@ Mongoosejs
 Mongoose
 
 Mongoose is an Object Data Modeling (ODM) library for Node.js that provides a straightforward and elegant way to interact with MongoDB. It allows developers to define schemas and models for their data, providing structure and validation. Mongoose also offers features like data querying, middleware, and support for data relationships, making it a powerful tool for building MongoDB-based applications.
+```
 
 npm i mongoose@7.0.5
 server.js
 
+```js
 import mongoose from 'mongoose';
 
 try {
@@ -1877,7 +1879,11 @@ export const getAllJobs = async (req, res) => {
 const jobs = await Job.find({});
 res.status(200).json({ jobs });
 };
+```
+
 #### Get Single Job
+
+```js
 export const getJob = async (req, res) => {
 const { id } = req.params;
 const job = await Job.findById(id);
