@@ -20,11 +20,6 @@ app.get('/', (req, res) => {
   res.send('hello world');
 });
 
-app.get('/api/v1/test', (req, res) => {
-  const { name } = req.body;
-  res.json({ message: `data received name = ${name}` });
-});
-
 app.use('/api/v1/jobs', jobRouter);
 
 app.use('*', (req, res) => {
