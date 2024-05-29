@@ -3,6 +3,7 @@ import { BadRequestError, NotFoundError } from '../errors/customErrors.js';
 import { JOB_STATUS, JOB_TYPE } from '../utils/constants.js';
 import mongoose from 'mongoose';
 import jobModel from '../models/jobModel.js';
+import UserModel from '../models/UserModel.js';
 
 const withValidationErrors = (validateValues) => {
   return [
@@ -39,4 +40,24 @@ export const validateIdParam = withValidationErrors([
     const isJob = await jobModel.findById(value);
     if (!isJob) throw new NotFoundError(`no Job with id ${value}`);
   }),
+]);
+
+export const validateResgisterInput = withValidationErrors([
+  body('name').notEmpty().withMessage('Please enter a Name'),
+  body('email')
+    .notEmpty()
+    .withMessage('Please enter email')
+    .isEmail()
+    .withMessage('Invalid Email')
+    .custom(async (email) => {
+      const user = await UserModel.findOne({ email });
+      if (user) throw new BadRequestError('Email exists already');
+    }),
+  body('password')
+    .notEmpty()
+    .withMessage('Please enter password')
+    .isLength({ min: 8 })
+    .withMessage('Password must be atleast 8 characters long'),
+  body('location').notEmpty().withMessage('Please enter location'),
+  body('lastName').notEmpty().withMessage('Please enter lastName'),
 ]);
