@@ -61,3 +61,12 @@ export const validateResgisterInput = withValidationErrors([
   body('location').notEmpty().withMessage('Please enter location'),
   body('lastName').notEmpty().withMessage('Please enter lastName'),
 ]);
+
+export const validateLoginInput = withValidationErrors([
+  body('email')
+    .notEmpty()
+    .withMessage('Please enter email')
+    .isEmail()
+    .withMessage('Invalid Email'),
+  body('password').notEmpty().withMessage('Please enter password'),
+]);
